@@ -5,12 +5,12 @@ const unzipFile = require('../../helpers/unzip-file');
 const fsConfig = {
   cell: {
     file: './files/rna-expression/cells/Homo sapiens.tsv',
-    url: 'https://www.proteinatlas.org/download/rna_celline.tsv.zip',
+    url: 'https://www.proteinatlas.org/download/tsv/rna_celline.tsv.zip',
     zipFile: './files/rna-expression/cells/Homo sapiens.zip',
   },
   tissue: {
     file: './files/rna-expression/tissues/Homo sapiens.tsv',
-    url: 'https://www.proteinatlas.org/download/rna_tissue_hpa.tsv.zip',
+    url: 'https://www.proteinatlas.org/download/tsv/rna_tissue_hpa.tsv.zip',
     zipFile: './files/rna-expression/tissues/Homo sapiens.zip',
   },
 };

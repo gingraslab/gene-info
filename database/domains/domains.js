@@ -8,7 +8,7 @@ const fsConfig = {
   domains: {
     file: './files/domains/domains-uniprot.tsv',
     host: 'ftp.ebi.ac.uk',
-    hostFile: 'pub/databases/Pfam/current_release/Pfam-A.regions.uniprot.tsv.gz',
+    hostFile: 'pub/databases/Pfam/current_release/Pfam-A.regions.tsv.gz',
     zipFile: './files/domains/domains-uniprot.gz',
   },
   folder: 'files/domains',

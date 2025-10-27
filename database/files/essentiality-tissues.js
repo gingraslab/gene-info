@@ -5,19 +5,13 @@ const tissues = {
     tissues: [
     ],
   },
-  'Xenopus laevis': {
-    cells: [
-    ],
-    tissues: [
-    ],
-  },
   'Gallus gallus': {
     cells: [
     ],
     tissues: [
     ],
   },
-  'Danio rerio': {
+  'Xenopus laevis': {
     cells: [
     ],
     tissues: [
@@ -29,19 +23,25 @@ const tissues = {
     tissues: [
     ],
   },
+  'Danio rerio': {
+    cells: [
+    ],
+    tissues: [
+    ],
+  },
   'Schizosaccharomyces pombe': {
     cells: [
     ],
     tissues: [
     ],
   },
-  'Escherichia coli (K12)': {
+  'Caenorhabditis elegans': {
     cells: [
     ],
     tissues: [
     ],
   },
-  'Caenorhabditis elegans': {
+  'Escherichia coli (K12)': {
     cells: [
     ],
     tissues: [
@@ -388,6 +388,7 @@ const tissues = {
       'HSC5',
       'HSOS1',
       'HSQ89',
+      'HSSCH2',
       'HT',
       'HT1080',
       'HT115',
@@ -461,6 +462,7 @@ const tissues = {
       'JR',
       'JURKAT',
       'JURLMK1',
+      'JVE127',
       'JVM3',
       'K029AX',
       'K562',
@@ -603,6 +605,7 @@ const tissues = {
       'MELJUSO',
       'MERO14',
       'MERO25',
+      'MERO41',
       'MERO82',
       'MERO83',
       'MERO95',
@@ -613,6 +616,7 @@ const tissues = {
       'MHHES1',
       'MHHNB11',
       'MIAPACA2',
+      'MJ',
       'MKN28',
       'MKN45',
       'MKN74',
@@ -628,6 +632,7 @@ const tissues = {
       'MOGGUVW',
       'MOLM13',
       'MOLM14',
+      'MON',
       'MONOMAC1',
       'MORCPR',
       'MPP89',
@@ -650,6 +655,7 @@ const tissues = {
       'NB6',
       'NB69',
       'NB7',
+      'NCCMPNST2C1',
       'NCIH1048',
       'NCIH1092',
       'NCIH1155',
@@ -670,6 +676,7 @@ const tissues = {
       'NCIH1755',
       'NCIH1792',
       'NCIH1793',
+      'NCIH1836',
       'NCIH1869',
       'NCIH1915',
       'NCIH1944',
@@ -687,6 +694,7 @@ const tissues = {
       'NCIH2122',
       'NCIH2126',
       'NCIH2170',
+      'NCIH2171',
       'NCIH2172',
       'NCIH226',
       'NCIH2286',
@@ -887,6 +895,7 @@ const tissues = {
       'SH4',
       'SHI1',
       'SHMAC4',
+      'SHMAC5',
       'SHP77',
       'SHSY5Y',
       'SIHA',
@@ -977,12 +986,15 @@ const tissues = {
       'SNUC4',
       'SNUC5',
       'SSP25',
+      'ST486',
       'SU8686',
+      'SUDHL1',
       'SUDHL10',
       'SUDHL4',
       'SUDHL5',
       'SUDHL8',
       'SUIT2',
+      'SUM102PT',
       'SUM1315MO2',
       'SUM149PT',
       'SUM159PT',
@@ -992,8 +1004,10 @@ const tissues = {
       'SUPT1',
       'SUSA',
       'SW1088',
+      'SW1116',
       'SW1271',
       'SW1463',
+      'SW156',
       'SW1573',
       'SW1990',
       'SW403',
@@ -1093,6 +1107,7 @@ const tissues = {
       'UPCISCC040',
       'UPCISCC074',
       'UPCISCC090',
+      'UPCISCC111',
       'UPCISCC116',
       'UPCISCC131',
       'UPCISCC152',
@@ -1112,6 +1127,7 @@ const tissues = {
       'WM1799',
       'WM2664',
       'WM3211',
+      'WM3772F',
       'WM793',
       'WM88',
       'WM983B',

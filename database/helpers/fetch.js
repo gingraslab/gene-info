@@ -1,33 +1,37 @@
 const fetch = require('node-fetch');
 
-const parseJSON = require('./parse-json');
+const DEFAULT_HEADERS = {
+  accept: 'application/json',
+  'user-agent': 'gene-info/1.0',
+};
 
-const fetchJson = url => (
-  new Promise((resolve, reject) => {
-    fetch(url)
-      .then((res) => {
-        const contentType = res.headers.get('content-type');
-        if (
-          res.ok
-          && contentType
-          && contentType.includes('application/json')
-        ) {
-          return res.text();
+async function fetchJson(url, opts = {}) {
+  const { retries = 2, retryDelayMs = 500, headers = {}, ...rest } = opts;
+  let lastErr;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, { headers: { ...DEFAULT_HEADERS, ...headers }, ...rest });
+      const text = await res.text();
+      if (!res.ok) {
+        if (attempt < retries && (res.status === 429 || (res.status >= 500 && res.status <= 599))) {
+          await new Promise(r => setTimeout(r, retryDelayMs * Math.pow(2, attempt)));
+          continue;
         }
-        return Promise.rejected(new Error(res.statusText));
-      })
-      .then((text) => {
-        const json = parseJSON(text);
-        if (json) {
-          resolve(json);
-        } else {
-          reject(new Error(`JSON not returned for: ${url}`));
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  })
-);
+        throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}\n${text.slice(0,300)}`);
+      }
+      try { return JSON.parse(text); }
+      catch (e) { throw new Error(`Non-JSON from ${url}: ${text.slice(0,300)}`); }
+    } catch (e) {
+      lastErr = e;
+      if (attempt < retries) {
+        await new Promise(r => setTimeout(r, retryDelayMs * Math.pow(2, attempt)));
+        continue;
+      }
+    }
+  }
+  throw lastErr;
+}
 
 module.exports = fetchJson;
+

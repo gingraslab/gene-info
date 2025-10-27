@@ -7,7 +7,7 @@ const unzipFile = require('../helpers/unzip-file');
 const fsConfig = {
   hpa: {
     file: './files/localization/hpa/Homo sapiens.tsv',
-    url: 'https://www.proteinatlas.org/download/subcellular_location.tsv.zip',
+    url: 'https://www.proteinatlas.org/download/tsv/subcellular_location.tsv.zip',
     zipFile: './files/localization/hpa.zip',
   },
   hpaFolder: './files/localization/hpa',

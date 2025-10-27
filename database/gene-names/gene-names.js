@@ -8,7 +8,7 @@ const fsConfig = {
     {
       file: './files/gene-names/hgnc.json',
       host: 'ftp.ebi.ac.uk',
-      hostFile: '/pub/databases/genenames/new/json/locus_groups/protein-coding_gene.json',
+      hostFile: '/pub/databases/genenames/out_of_date_hgnc/json/locus_groups/protein-coding_gene.json',
     },
   ],
 };

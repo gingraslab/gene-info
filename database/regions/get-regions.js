@@ -14,18 +14,49 @@ const parseRegions = json => (
   }))
 );
 
-const fetchGraphic = id => (
-  new Promise((resolve) => {
-    fetchJson(`http://pfam.xfam.org/protein/${id}/graphic`)
-      .then((json) => {
-        const regions = parseRegions(json[0]);
-        resolve(regions);
-      })
-      .catch(() => {
-        resolve([]);
-      });
-  })
-);
+const fetchGraphic = async (uniprotId) => {
+  try {
+    // 1) UniProt features
+    const u = await fetchJson(`https://rest.uniprot.org/uniprotkb/${uniprotId}.json`);
+    const feat = Array.isArray(u?.features) ? u.features : [];
+    const regions = [];
+
+    for (const f of feat) {
+      const start = f?.location?.start?.value;
+      const end   = f?.location?.end?.value;
+      if (!Number.isInteger(start) || !Number.isInteger(end)) continue;
+
+      const type = String(f.type || '').toLowerCase();
+      const note = String(f.description || f.note || '').toLowerCase();
+
+      if (type === 'signal peptide' || type.includes('signal')) {
+        regions.push({ name: 'sig_p', start, end });
+      } else if (type === 'transmembrane region' || type.startsWith('transmembrane')) {
+        regions.push({ name: 'transmembrane', start, end });
+      } else if (type === 'compositional bias' && /low.?complex/.test(note)) {
+        regions.push({ name: 'low_complexity', start, end });
+      } else if (type === 'disordered region' || type.includes('disorder')) {
+        regions.push({ name: 'disorder', start, end });
+      }
+    }
+
+    // 2) If no disorder came from UniProt, fill from MobiDB
+    if (!regions.some(r => r.name === 'disorder')) {
+      const m = await fetchJson(`https://mobidb.org/api/download?acc=${uniprotId}&format=json`);
+      const dis =
+        m?.['disorder-disHL']?.regions ||
+        m?.['disorder-consensus']?.regions ||
+        [];
+      if (Array.isArray(dis)) {
+        for (const [s, e] of dis) regions.push({ name: 'disorder', start: s, end: e });
+      }
+    }
+    console.error('[fetchGraphic]', uniprotId, 'features:', feat.length, 'parsed:', regions.length);
+    return regions;
+  } catch {
+    return [];
+  }
+};
 
 const writeRegions = (id, regions, stream) => {
   regions.forEach((region) => {

@@ -24,7 +24,7 @@ const fsConfig = {
 const generateCoDependencies = () => (
   new Promise((resolve) => {
     const currDir = cwd();
-    const command = `python3 ${__dirname}/correlation_from_csv.py "${currDir}/${fsConfig.effectsData.file}" "${currDir}/${fsConfig.effectsData.file}" "${currDir}/${fsConfig.coDependency.file}"`;
+    const command = `py ${__dirname}/correlation_from_csv.py "${currDir}/${fsConfig.effectsData.file}" "${currDir}/${fsConfig.effectsData.file}" "${currDir}/${fsConfig.coDependency.file}"`;
     const process = exec(
       command,
       { cwd: OUT_FOLDER },

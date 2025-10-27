@@ -1,39 +1,34 @@
 const findGene = (genes) => {
-  if (!genes) {
-    return {};
-  }
-  const obj = {
-    locus: '',
-    orf: [],
-    primary: '',
-    synonyms: [],
-  };
-  return genes[0].name.reduce((accum, gene) => {
-    switch (gene.$.type) {
+  const empty = { locus: '', orf: [], primary: '', synonyms: [] };
+
+  if (!genes) return empty;
+
+  const first = Array.isArray(genes) ? genes[0] : genes;
+  if (!first || !Array.isArray(first.name)) return empty;
+
+  return first.name.reduce((accum, gene) => {
+    const type = gene && gene.$ ? gene.$.type : undefined;
+    const text = (gene && typeof gene._ === 'string') ? gene._ : (typeof gene === 'string' ? gene : '');
+
+    if (!text) return accum;
+
+    switch (type) {
       case 'ordered locus':
-        return {
-          ...accum,
-          locus: gene._,
-        };
+        return { ...accum, locus: text };
+
       case 'ORF':
-        return {
-          ...accum,
-          orf: [...accum.orf, gene._],
-        };
+        return { ...accum, orf: [...accum.orf, text] };
+
       case 'primary':
-        return {
-          ...accum,
-          primary: gene._,
-        };
+        return { ...accum, primary: text };
+
       case 'synonym':
-        return {
-          ...accum,
-          synonyms: [...accum.synonyms, gene._],
-        };
+        return { ...accum, synonyms: [...accum.synonyms, text] };
+
       default:
         return accum;
     }
-  }, obj);
+  }, empty);
 };
 
 module.exports = findGene;
